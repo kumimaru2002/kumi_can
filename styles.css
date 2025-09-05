@@ -4,6 +4,11 @@
   box-sizing: border-box;
 }
 
+html, body {
+  width: 100%;
+  overflow-x: hidden;
+}
+
 body {
   font-family: 'Arial', sans-serif;
   color: white;
@@ -170,6 +175,11 @@ body.loading {
   justify-content: center;
   padding: 100px 20px;
   position: relative;
+  
+  @media (max-width: 768px) {
+    background-attachment: scroll;
+    padding: 80px 20px;
+  }
 }
 
 .profile-section::before {
@@ -344,6 +354,12 @@ body.loading {
 .timeline-container {
   max-width: 900px;
   margin: 0 auto;
+  padding: 0 20px;
+  overflow-x: hidden;
+  
+  @media (max-width: 768px) {
+    padding: 0 15px;
+  }
 }
 
 .timeline-title {
@@ -629,6 +645,11 @@ body.loading {
   padding: 100px 0;
   position: relative;
   color: white;
+  
+  @media (max-width: 768px) {
+    background-attachment: scroll;
+    padding: 80px 0;
+  }
 }
 
 .fan-support-section::before {
@@ -648,6 +669,7 @@ body.loading {
   padding: 0 20px;
   position: relative;
   z-index: 2;
+  overflow-x: hidden;
 }
 
 .fan-support-title {
@@ -681,10 +703,16 @@ body.loading {
   grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
   gap: 30px;
   margin-top: 40px;
+  width: 100%;
 
   @media (max-width: 768px) {
     grid-template-columns: 1fr;
     gap: 20px;
+    grid-template-columns: minmax(0, 1fr);
+  }
+  
+  @media (max-width: 480px) {
+    gap: 15px;
   }
 }
 
@@ -801,6 +829,11 @@ body.loading {
   opacity: 0;
   transform: translateX(50px);
   transition: opacity 0.8s ease, transform 0.8s ease;
+  contain: layout;
+  
+  @media (max-width: 768px) {
+    transform: translateX(30px);
+  }
 }
 
 .timeline-animate.slide-in {
