@@ -30,8 +30,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // スクロール誘導機能
 function scrollToContent() {
-    const container = document.querySelector('.container');
-    container.scrollIntoView({ 
+    const profileSection = document.querySelector('.profile-section');
+    profileSection.scrollIntoView({ 
         behavior: 'smooth',
         block: 'start'
     });

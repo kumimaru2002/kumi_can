@@ -66,7 +66,7 @@ body.loading {
 
 .loading-bar {
   height: 100%;
-  background: linear-gradient(90deg, #FFD700, #FFA500);
+  background: linear-gradient(90deg, #ffd700, #ffa500);
   border-radius: 10px;
   animation: loading-progress 2s ease-out forwards;
   transform-origin: left;
@@ -159,42 +159,68 @@ body.loading {
   }
 }
 
-.container {
-  text-align: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  min-height: 100vh;
+.profile-section {
+  background-image: url('assets/yakei.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  padding: 50px;
+  padding: 100px 20px;
+  position: relative;
+}
+
+.profile-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1;
+}
+
+.profile-container {
+  max-width: 800px;
+  width: 100%;
+  text-align: left;
+  color: white;
+  position: relative;
+  z-index: 2;
 
   @media (max-width: 768px) {
-    padding: 30px;
+    max-width: 100%;
+    padding: 0 10px;
   }
 }
 
-.title {
-  font-size: 3rem;
-  margin-bottom: 1rem;
-  background: linear-gradient(45deg, #fff, #f0f0f0);
-  background-clip: text;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: fadeInUp 1s ease-out;
+.profile-title {
+  font-size: 4rem;
+  margin-bottom: 2rem;
+  color: white;
+  font-weight: bold;
+  text-align: center;
 
   @media (max-width: 768px) {
-    font-size: 2rem;
+    font-size: 2.5rem;
+    margin-bottom: 1.5rem;
   }
 }
 
-.subtitle {
+.profile-content {
   font-size: 1.2rem;
-  opacity: 0.9;
-  animation: fadeInUp 1s ease-out 0.3s both;
+  line-height: 1.8;
+  color: white;
+
+  p {
+    margin-bottom: 1.5rem;
+  }
 
   @media (max-width: 768px) {
-    font-size: 1rem;
+    font-size: 1.1rem;
   }
 }
 
