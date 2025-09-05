@@ -27,3 +27,12 @@ document.addEventListener('DOMContentLoaded', function() {
     // ページロード時にコンソールメッセージ
     console.log('🎉 Hello World サイトが読み込まれました！');
 });
+
+// スクロール誘導機能
+function scrollToContent() {
+    const container = document.querySelector('.container');
+    container.scrollIntoView({ 
+        behavior: 'smooth',
+        block: 'start'
+    });
+}
