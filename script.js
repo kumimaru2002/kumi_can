@@ -180,8 +180,56 @@ class TimelineAnimationManager {
     }
 }
 
+// 応援メッセージアニメーション管理
+class SupportMessageAnimationManager {
+    constructor() {
+        this.supportSection = document.querySelector('.fan-support-section');
+        this.supportMessages = document.querySelectorAll('.support-animate');
+        this.hasAnimated = false;
+        this.setupIntersectionObserver();
+    }
+
+    setupIntersectionObserver() {
+        const observerOptions = {
+            threshold: 0.2, // 20%表示されたときにアニメーション開始
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        this.observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting && !this.hasAnimated) {
+                    // 画面に入ったときに順次アニメーション実行
+                    this.startFlashAnimation();
+                    this.hasAnimated = true;
+                } else if (!entry.isIntersecting && this.hasAnimated) {
+                    // 画面外に出たときにリセット（再アニメーション用）
+                    this.resetAnimation();
+                }
+            });
+        }, observerOptions);
+
+        this.observer.observe(this.supportSection);
+    }
+
+    startFlashAnimation() {
+        this.supportMessages.forEach((message, index) => {
+            setTimeout(() => {
+                message.classList.add('flash-in');
+            }, index * 200); // 各メッセージを200msずつ遅延して点滅表示
+        });
+    }
+
+    resetAnimation() {
+        this.hasAnimated = false;
+        this.supportMessages.forEach(message => {
+            message.classList.remove('flash-in');
+        });
+    }
+}
+
 // ページ読み込み時にアニメーションマネージャーを初期化
 document.addEventListener('DOMContentLoaded', function() {
     new ProfileAnimationManager();
     new TimelineAnimationManager();
+    new SupportMessageAnimationManager();
 });
