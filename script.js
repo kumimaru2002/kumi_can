@@ -36,3 +36,65 @@ function scrollToContent() {
         block: 'start'
     });
 }
+
+// ローディング画面の管理
+class LoadingManager {
+    constructor() {
+        this.loadingScreen = document.querySelector('.loading-screen');
+        this.imagesToLoad = ['assets/mini_can_udekumi.png', 'assets/kumi_wink.PNG'];
+        this.loadedImages = 0;
+        this.minDisplayTime = 2000; // 最低2秒間表示
+        this.startTime = Date.now();
+        this.allImagesLoaded = false;
+        this.disableScroll();
+        this.preloadImages();
+    }
+
+    disableScroll() {
+        document.body.classList.add('loading');
+    }
+
+    enableScroll() {
+        document.body.classList.remove('loading');
+    }
+
+    preloadImages() {
+        this.imagesToLoad.forEach((src) => {
+            const img = new Image();
+            img.onload = () => this.onImageLoaded();
+            img.onerror = () => this.onImageLoaded();
+            img.src = src;
+        });
+    }
+
+    onImageLoaded() {
+        this.loadedImages++;
+        if (this.loadedImages >= this.imagesToLoad.length) {
+            this.allImagesLoaded = true;
+            this.checkIfCanHide();
+        }
+    }
+
+    checkIfCanHide() {
+        const elapsedTime = Date.now() - this.startTime;
+        if (this.allImagesLoaded && elapsedTime >= this.minDisplayTime) {
+            this.hideLoading();
+        } else {
+            const remainingTime = Math.max(0, this.minDisplayTime - elapsedTime);
+            setTimeout(() => this.hideLoading(), remainingTime);
+        }
+    }
+
+    hideLoading() {
+        this.loadingScreen.classList.add('fade-out');
+        this.enableScroll();
+        setTimeout(() => {
+            this.loadingScreen.style.display = 'none';
+        }, 500);
+    }
+}
+
+// ページ読み込み時にローディングマネージャーを初期化
+document.addEventListener('DOMContentLoaded', function() {
+    new LoadingManager();
+});
