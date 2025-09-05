@@ -98,3 +98,57 @@ class LoadingManager {
 document.addEventListener('DOMContentLoaded', function() {
     new LoadingManager();
 });
+
+// プロフィールセクションのアニメーション管理
+class ProfileAnimationManager {
+    constructor() {
+        this.profileSection = document.getElementById('profile-section');
+        this.animateItems = this.profileSection.querySelectorAll('.animate-item');
+        this.hasAnimated = false;
+        this.setupIntersectionObserver();
+    }
+
+    setupIntersectionObserver() {
+        const observerOptions = {
+            threshold: 0.3, // 30%表示されたときにアニメーション開始
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        this.observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // 画面に入ったときにアニメーション実行
+                    this.startAnimation();
+                } else if (this.hasAnimated) {
+                    // 画面外に出たときにアニメーションをリセット（再アニメーション用）
+                    this.resetAnimation();
+                }
+            });
+        }, observerOptions);
+
+        this.observer.observe(this.profileSection);
+    }
+
+    startAnimation() {
+        this.hasAnimated = true;
+        // DOM順序でアニメーションを実行（上から順番）
+        const itemsArray = Array.from(this.animateItems);
+        itemsArray.forEach((item, index) => {
+            setTimeout(() => {
+                item.classList.add('animate');
+            }, index * 300); // 各要素を300msずつ遅延して順次表示
+        });
+    }
+
+    resetAnimation() {
+        this.hasAnimated = false;
+        this.animateItems.forEach(item => {
+            item.classList.remove('animate');
+        });
+    }
+}
+
+// ページ読み込み時にアニメーションマネージャーを初期化
+document.addEventListener('DOMContentLoaded', function() {
+    new ProfileAnimationManager();
+});

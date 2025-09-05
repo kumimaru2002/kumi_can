@@ -777,3 +777,17 @@ body.loading {
     font-size: 0.9rem;
   }
 }
+
+/* Animation Styles */
+.animate-item {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.animate-item.animate {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* transition-delayはJavaScriptで制御するため削除 */
