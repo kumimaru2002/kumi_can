@@ -148,7 +148,40 @@ class ProfileAnimationManager {
     }
 }
 
+// タイムラインアニメーション管理
+class TimelineAnimationManager {
+    constructor() {
+        this.timelineItems = document.querySelectorAll('.timeline-animate');
+        this.setupIntersectionObserver();
+    }
+
+    setupIntersectionObserver() {
+        const observerOptions = {
+            threshold: 0.3, // 30%表示されたときにアニメーション開始
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        this.observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // 画面に入ったときにアニメーション実行
+                    entry.target.classList.add('slide-in');
+                } else {
+                    // 画面外に出たときにアニメーションをリセット（再アニメーション用）
+                    entry.target.classList.remove('slide-in');
+                }
+            });
+        }, observerOptions);
+
+        // 各タイムラインアイテムを監視対象に追加
+        this.timelineItems.forEach(item => {
+            this.observer.observe(item);
+        });
+    }
+}
+
 // ページ読み込み時にアニメーションマネージャーを初期化
 document.addEventListener('DOMContentLoaded', function() {
     new ProfileAnimationManager();
+    new TimelineAnimationManager();
 });

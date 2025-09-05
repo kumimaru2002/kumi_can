@@ -791,3 +791,15 @@ body.loading {
 }
 
 /* transition-delayはJavaScriptで制御するため削除 */
+
+/* Timeline Animation Styles */
+.timeline-animate {
+  opacity: 0;
+  transform: translateX(50px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.timeline-animate.slide-in {
+  opacity: 1;
+  transform: translateX(0);
+}
